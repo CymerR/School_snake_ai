@@ -33,7 +33,7 @@ class Snake(object):
 
 
     def get_head(self):
-        return self.body[0]
+        return self.body[-1]
 
 
     def process_keys(self, keys):
