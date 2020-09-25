@@ -7,15 +7,15 @@ class Snake(object):
         self.x = posx
         self.y = posy
         self.body = [(self.x,self.y)]
-        self.init_body()
         self.length = 3
         self.TILE_SIZE = TILE_SIZE
         self.dx = 1
         self.dy = 0
+        self.init_body()
 
     """private """
     def init_body(self):
-        for it in range(1,3):
+        for it in range(1,self.length):
             self.body.append((self.x + it, self.y))
 
     def move(self):
@@ -37,7 +37,6 @@ class Snake(object):
 
 
     def process_keys(self, keys):
-
         if keys[K_w]:
             self.dx, self.dy =  0, -1
         if keys[K_s]:

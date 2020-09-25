@@ -9,13 +9,13 @@ pygame.init()
 screen = pygame.display.set_mode(SIZE)
 snake = snake.Snake(3,7)
 
-FPS = 5
+FPS = 10
 
 clock = pygame.time.Clock()
 
 #apple
-appX = randrange(0, WIDTH, TILE_SIZE)
-appY = randrange(0, HEIGHT, TILE_SIZE)
+appX = randrange(0, WIDTH//TILE_SIZE, 1)
+appY = randrange(0, HEIGHT//TILE_SIZE,1)
 apple = (appX, appY)
 
 def create_apple():
@@ -32,12 +32,13 @@ while True:
 
 
     snake.draw_self(screen, TILE_SIZE)
-    pygame.draw.rect(screen, pygame.Color("yellow"),(apple, (TILE_SIZE, TILE_SIZE)))
+    pygame.draw.rect(screen, pygame.Color("yellow"),(appX * TILE_SIZE, appY*TILE_SIZE, TILE_SIZE, TILE_SIZE))
+    print(f"{snake.get_head()}--{apple}".format())
     if snake.get_head() == apple:
         snake.eat_apple()
         create_apple()
 
-    
+
     snake.process_keys(pygame.key.get_pressed())
 
     snake.move()
