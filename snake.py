@@ -3,14 +3,14 @@ from pygame import *
 class Snake(object):
     """docstring for Snake."""
 
-    def __init__(self, posx,posy, TILE_SIZE=16):
-        self.x = posx
-        self.y = posy
+    def __init__(self, position, ctrl_strategy=None,TILE_SIZE=16):
+        self.x, self.y = position
         self.body = [(self.x,self.y)]
         self.length = 3
         self.TILE_SIZE = TILE_SIZE
         self.dx = 1
         self.dy = 0
+        self.ctrl_strategy = ctrl_strategy
         self.init_body()
 
     """private """
@@ -36,12 +36,6 @@ class Snake(object):
         return self.body[-1]
 
 
-    def process_keys(self, keys):
-        if keys[K_w]:
-            self.dx, self.dy =  0, -1
-        if keys[K_s]:
-            self.dx, self.dy =  0,  1
-        if keys[K_a]:
-            self.dx, self.dy = -1,  0
-        if keys[K_d]:
-            self.dx, self.dy =  1,  0
+    def process_keys(self, keys=None, cells=None):
+        if self.ctrl_strategy != None:
+            self.dx, self.dy = self.ctrl_strategy.decide(keys, cells, prev_pos=(self.dx, self.dy))
